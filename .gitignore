@@ -1,0 +1,6 @@
+.DS_Store
+/config.ts
+/data/**/*.csv
+/data/**/*.json
+/dist
+node_modules

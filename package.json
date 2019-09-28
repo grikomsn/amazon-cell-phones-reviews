@@ -1,0 +1,26 @@
+{
+  "name": "amazon-cell-phones-reviews",
+  "description": "Scrape (un)locked cell phone ratings and reviews on Amazon",
+  "version": "1.0.0",
+  "repository": "git@github.com:grikomsn/amazon-cell-phones-reviews.git",
+  "author": "Griko Nibras <grikomsn@gmail.com>",
+  "scripts": {
+    "scrape": "yarn scrape:items && yarn scrape:reviews",
+    "scrape:items": "ts-node src/scrapeSearchResults.ts",
+    "scrape:reviews": "ts-node src/scrapeItemReviews.ts",
+    "format": "prettier --config .prettierrc --write src/**/*.ts",
+    "format:data": "prettier --config .prettierrc --write data/**/*.json"
+  },
+  "dependencies": {
+    "papaparse": "^5.1.0",
+    "puppeteer": "^1.20.0",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.3"
+  },
+  "devDependencies": {
+    "@types/papaparse": "^5.0.1",
+    "@types/puppeteer": "^1.19.1",
+    "prettier": "^1.18.2"
+  },
+  "license": "SEE LICENSE IN LICENSE"
+}
