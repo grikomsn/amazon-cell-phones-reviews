@@ -66,16 +66,16 @@ async function scrapeItemReviews() {
   console.log('Updating items with no brands...')
   saveToData(results, `${date}-items.csv`)
 
-  let reviews = [] as Review[]
+  let mergedReviews = [] as Review[]
 
   console.log('Merging all reviews into one file...')
   for (const { asin } of results) {
     const reviews = loadFromData('reviews', `${date}-${asin}.csv`) as Review[]
-    reviews.push(...reviews)
+    mergedReviews.push(...reviews)
   }
 
   console.log('Saving reviews...')
-  saveToData(reviews, `${date}-reviews.csv`)
+  saveToData(mergedReviews, `${date}-reviews.csv`)
 }
 
 scrapeItemReviews()
