@@ -17,8 +17,9 @@ async function scrapeSearchResults() {
   let items = [] as SearchResult[]
 
   for (const unlocked of categories) {
-    const category = (unlocked ? 'unlocked' : 'locked') as CarrierCategory
+    let categoryItems = [] as SearchResult[]
 
+    const category = (unlocked ? 'unlocked' : 'locked') as CarrierCategory
     const worker = workers[0]
     const url = createSearchUrl({ brands, unlocked })
 
@@ -26,7 +27,7 @@ async function scrapeSearchResults() {
     await worker.goto(url, workerProps)
 
     const { meta, results } = await worker.evaluate(extract)
-    items.push(...results.map(r => ({ ...r, category })))
+    categoryItems.push(...results.map(r => ({ ...r, category })))
 
     let currentPage = 2
     let totalPage = meta.totalPages
@@ -60,8 +61,12 @@ async function scrapeSearchResults() {
         if (meta.totalPages > totalPage) {
           totalPage = meta.totalPages
         }
-        items.push(...results.map(result => ({ ...result, category })))
+        categoryItems.push(...results)
       })
+
+      console.log(`Saving ${category} results to separate file...`)
+      saveToData(categoryItems, `${date}-items-${category}.csv`)
+      items.push(...categoryItems)
     }
   }
 
@@ -98,10 +103,9 @@ async function scrapeSearchResults() {
     console.log('Brands config is empty, skipping brand detecting...')
   }
 
-  console.log('Sorting based on ASINs...')
-  items = items.sort(({ asin: a }, { asin: b }) => {
-    return a < b ? -1 : a > b ? 1 : 0
-  })
+  console.log('Sorting and finding duplicates...')
+  const asins = [...new Set(items.map(({ asin }) => asin))].sort()
+  items = asins.map(asin => items.find(item => item.asin === asin))
 
   console.log(`Saving results...`)
   saveToData(items, `${date}-items.csv`)
