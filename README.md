@@ -94,7 +94,7 @@ You can download pre-scraped datasets at [Kaggle](https://kaggle.com/grikomsn/am
 
   Whether scrape unlocked, locked, or both categories. If both, workers will scrape unlocked results first then locked results.
 
-- `pageWorkers` - `number`
+- `numberOfWorkers` - `number`
 
   _Number of active 'workers' or pages to use for scraping._
 
@@ -125,7 +125,7 @@ You can download pre-scraped datasets at [Kaggle](https://kaggle.com/grikomsn/am
     { brand: 'Sony', keywords: ['Xperia'] },
   ],
   categories: 'both',
-  pageWorkers: 8,
+  numberOfWorkers: 8,
 }
 ```
 

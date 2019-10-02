@@ -1,26 +1,25 @@
-import { Configuration } from './src/types'
+export const brands = [
+  'ASUS',
+  'Apple',
+  'Google',
+  'HUAWEI',
+  'Motorola',
+  'Nokia',
+  'OnePlus',
+  'Samsung',
+  'Sony',
+  'Xiaomi',
+]
 
-export default {
-  brands: [
-    'ASUS',
-    'Apple',
-    'Google',
-    'HUAWEI',
-    'Motorola',
-    'Nokia',
-    'OnePlus',
-    'Samsung',
-    'Sony',
-    'Xiaomi',
-  ],
-  brandKeywords: [
-    { brand: 'Apple', keywords: ['iPhone'] },
-    { brand: 'Google', keywords: ['Pixel'] },
-    { brand: 'HUAWEI', keywords: ['Honor'] },
-    { brand: 'Motorola', keywords: ['Moto'] },
-    { brand: 'Samsung', keywords: ['Haven'] },
-    { brand: 'Sony', keywords: ['Xperia'] },
-  ],
-  categories: 'both',
-  pageWorkers: 8,
-} as Configuration
+export const brandKeywords = [
+  { brand: 'Apple', keywords: ['iPhone'] },
+  { brand: 'Google', keywords: ['Pixel'] },
+  { brand: 'HUAWEI', keywords: ['Honor'] },
+  { brand: 'Motorola', keywords: ['Moto'] },
+  { brand: 'Samsung', keywords: ['Haven'] },
+  { brand: 'Sony', keywords: ['Xperia'] },
+]
+
+export const categories = 'both'
+
+export const numberOfWorkers = 8

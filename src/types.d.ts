@@ -5,13 +5,6 @@ export interface BrandKeyword {
   keywords: string[]
 }
 
-export interface Configuration {
-  brands: string[]
-  brandKeywords: BrandKeyword[]
-  categories: CarrierCategory | 'both'
-  pageWorkers: number
-}
-
 export interface SearchResult {
   asin: string
   title: string

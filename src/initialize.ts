@@ -1,12 +1,10 @@
 import puppeteer, { Browser, DirectNavigationOptions, Page, ResourceType } from 'puppeteer'
 
-import { Configuration } from './types'
-
 async function loadConfig() {
-  const { default: config } = await import('../config').catch(() =>
+  const config = await import('../config').catch(() =>
     import('../config.default')
   )
-  return config as Configuration
+  return config
 }
 
 export default async function initialize({ useBrowser = true } = {}) {
@@ -23,7 +21,7 @@ export default async function initialize({ useBrowser = true } = {}) {
   if (useBrowser) {
     browser = await puppeteer.launch()
     workers = await Promise.all(
-      Array(config.pageWorkers)
+      Array(config.numberOfWorkers)
         .fill(undefined)
         .map(() => browser.newPage())
     )
