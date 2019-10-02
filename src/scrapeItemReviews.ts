@@ -39,8 +39,20 @@ async function scrapeItemReviews() {
         )
       )
 
+      type EvalType = Promise<Review[]>
       const extracted = await Promise.all(
-        finishedWorkers.map(worker => worker.evaluate(extract))
+        finishedWorkers.map(async function evaluate(worker, i): EvalType {
+          try {
+            return worker.evaluate(extract)
+          } catch (e) {
+            console.log(
+              `Evaluation failed on worker #${i + 1}, reloading page...`
+            )
+
+            await worker.reload(workerProps)
+            return evaluate(worker, i)
+          }
+        })
       )
 
       extracted.forEach(pageReviews => {

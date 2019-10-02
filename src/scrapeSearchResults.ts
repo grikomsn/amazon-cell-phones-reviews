@@ -2,7 +2,7 @@ import { Page } from 'puppeteer'
 
 import { initialize, saveToData } from '.'
 import { extractSearchResultPage as extract } from './extractors'
-import { CarrierCategory, SearchResult } from './types'
+import { CarrierCategory, SearchResult, SearchResultData } from './types'
 import { createSearchUrl } from './utils'
 
 async function scrapeSearchResults() {
@@ -53,8 +53,20 @@ async function scrapeSearchResults() {
         )
       )
 
+      type EvalType = Promise<SearchResultData>
       const extracted = await Promise.all(
-        finishedWorkers.map(worker => worker.evaluate(extract))
+        finishedWorkers.map(async function evaluate(worker, i): EvalType {
+          try {
+            return worker.evaluate(extract)
+          } catch (e) {
+            console.log(
+              `Evaluation failed on worker #${i + 1}, reloading page...`
+            )
+
+            await worker.reload(workerProps)
+            return evaluate(worker, i)
+          }
+        })
       )
 
       extracted.forEach(({ meta, results }) => {
