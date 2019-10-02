@@ -21,7 +21,7 @@ Read more on personalizing setting at the [configuration section](#configuration
 
 ## Download Data 📫
 
-You can download pre-scraped datasets at the [releases page](./releases) or also at [Kaggle datasets](https://kaggle.com/grikomsn/amazon-cell-phones-reviews).
+You can download pre-scraped datasets at [Kaggle](https://kaggle.com/grikomsn/amazon-cell-phones-reviews).
 
 ## Manual Scrape 🔧
 
