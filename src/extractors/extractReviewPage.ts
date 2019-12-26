@@ -4,7 +4,7 @@ export default function extractItemReviewPage() {
   let reviews = [] as Review[]
   const lineBreakRegex = /(\r?\n|\r)+/g
 
-  document.querySelectorAll('.review').forEach(el => {
+  document.querySelectorAll('.review.a-section').forEach(el => {
     const $name: HTMLElement = el.querySelector('.a-profile-name')
     const $rating: HTMLElement = el.querySelector('.review-rating')
     const $date: HTMLElement = el.querySelector('.review-date')
