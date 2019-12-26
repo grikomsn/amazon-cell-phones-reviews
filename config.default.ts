@@ -23,3 +23,7 @@ export const brandKeywords = [
 export const categories = 'both'
 
 export const numberOfWorkers = 8
+
+export const useBrowserless = false
+export const browserlessEndpoint = 'wss://chrome.browserless.io'
+export const browserlessToken = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'

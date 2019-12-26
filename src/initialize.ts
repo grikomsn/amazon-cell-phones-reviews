@@ -19,7 +19,17 @@ export default async function initialize({ useBrowser = true } = {}) {
   let workers = undefined as Page[]
 
   if (useBrowser) {
-    browser = await puppeteer.launch()
+    if (config.useBrowserless) {
+      const endpoint = config.browserlessEndpoint
+      const token = config.browserlessToken
+
+      browser = await puppeteer.connect({
+        browserWSEndpoint: `${endpoint}/?token=${token}`,
+      })
+    } else {
+      browser = await puppeteer.launch()
+    }
+
     workers = await Promise.all(
       Array(config.numberOfWorkers)
         .fill(undefined)
