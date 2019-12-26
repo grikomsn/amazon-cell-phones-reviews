@@ -13,7 +13,8 @@ export interface SearchResult {
   rating: number
   reviewUrl: string
   totalReviews: number
-  prices: string[]
+  price: number
+  originalPrice: number
   brand?: string
   category?: CarrierCategory
 }

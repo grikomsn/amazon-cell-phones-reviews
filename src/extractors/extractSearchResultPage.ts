@@ -28,13 +28,15 @@ function extractSearchResultPage() {
   document.querySelectorAll(selectors.resultItem).forEach(el => {
     const [$rating, $totalReviews] = el.querySelector(selectors.overview)
       .children as HTMLCollectionOf<HTMLElement>
+
     const $url = el.querySelector(selectors.itemTitle) as HTMLAnchorElement
-
     const asin = el.getAttribute('data-asin')
-    const prices = [] as string[]
 
-    const pushPrices = (p: HTMLElement) => prices.push(p.innerText)
-    el.querySelectorAll(selectors.prices).forEach(pushPrices)
+    const prices = [] as number[]
+    el.querySelectorAll(selectors.prices).forEach((p: HTMLElement) => {
+      prices.push(parseFloat(p.innerText.replace('$', '')))
+    })
+    const { 0: price = 0, 1: originalPrice = 0 } = prices
 
     results.push({
       asin,
@@ -44,7 +46,8 @@ function extractSearchResultPage() {
       rating: parseFloat(/^[0-9.]+/.exec($rating.innerText)[0]),
       reviewUrl: `https://www.amazon.com/product-reviews/${asin}`,
       totalReviews: parseInt($totalReviews.innerText),
-      prices,
+      price,
+      originalPrice,
     })
   })
 
