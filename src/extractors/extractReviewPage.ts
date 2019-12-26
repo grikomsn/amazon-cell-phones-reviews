@@ -17,7 +17,7 @@ export default function extractItemReviewPage() {
       $votes !== null ? /^([0-9]+|One)/.exec($votes.innerText)[1] : null
 
     const withHelpfulVotes = extracted
-      ? { helpfulVotes: extracted === 'One' ? 1 : parseInt(extracted) }
+      ? { helpfulVotes: (extracted === 'One' ? 1 : parseInt(extracted)) || 0 }
       : {}
 
     const withBrand = $brand !== null ? { brand: $brand.innerText } : {}
